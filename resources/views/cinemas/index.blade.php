@@ -26,7 +26,7 @@
                     <tr>
                         <th width="5%">#</th>
                         <th>Nama Bioskop</th>
-                        <th>Lokasi</th>
+                        <th>Total Kursi</th>
                         <th width="20%">Aksi</th>
                     </tr>
                 </thead>
@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $cinema->name }}</td>
-                            <td>{{ $cinema->location }}</td>
+                            <td>{{ $cinema->total_kursi }}</td>
                             <td>
                                 <a href="{{ route('cinemas.edit', $cinema->id) }}" class="btn btn-sm btn-warning">Ubah</a>
                                 <form action="{{ route('cinemas.destroy', $cinema->id) }}" method="POST" class="d-inline">

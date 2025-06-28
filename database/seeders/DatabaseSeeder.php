@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             MovieSeeder::class,
             ScheduleSeeder::class,
             TicketSeeder::class,
+            SeatSeeder::class, // opsional jika ada seat
         ]);
     }
 }

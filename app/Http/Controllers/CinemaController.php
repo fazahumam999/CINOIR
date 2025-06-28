@@ -25,12 +25,12 @@ class CinemaController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'location' => 'required|string',
+            'total_kursi' => 'required|integer',
         ]);
 
         Cinema::create([
             'name' => $request->name,
-            'location' => $request->location,
+            'total_kursi' => $request->total_kursi,
         ]);
 
         return redirect()->route('cinemas.index')->with('success', 'Bioskop berhasil ditambahkan.');
@@ -53,7 +53,7 @@ class CinemaController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'location' => 'required|string',
+            'total_kursi' => 'required|integer',
         ]);
 
         $cinema->update($request->all());

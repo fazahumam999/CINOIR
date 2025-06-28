@@ -10,9 +10,9 @@ class CinemaSeeder extends Seeder
     public function run(): void
     {
         Cinema::insert([
-            ['nama' => 'Studio 1', 'total_kursi' => 40],
-            ['nama' => 'Studio 2', 'total_kursi' => 50],
-            ['nama' => 'Studio 3', 'total_kursi' => 60],
+            ['name' => 'Studio 1', 'total_kursi' => 40],
+            ['name' => 'Studio 2', 'total_kursi' => 50],
+            ['name' => 'Studio 3', 'total_kursi' => 60],
         ]);
     }
 }

@@ -15,14 +15,14 @@ class TicketSeeder extends Seeder
                 'nomor_kursi' => 'A1',
                 'nama_pembeli' => 'John Doe',
                 'email_pembeli' => 'john@example.com',
-                'status' => 'paid'
+                'status' => 'dibayar'
             ],
             [
                 'schedule_id' => 1,
                 'nomor_kursi' => 'A2',
                 'nama_pembeli' => 'Jane Smith',
                 'email_pembeli' => 'jane@example.com',
-                'status' => 'booked'
+                'status' => 'terpesan'
             ]
         ]);
     }

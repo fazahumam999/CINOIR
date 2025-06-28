@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TicketController extends Controller
 {
@@ -27,8 +28,13 @@ class TicketController extends Controller
     {
         $request->validate([
             'schedule_id' => 'required|exists:schedules,id',
-            'nomor_kursi' => 'required|string|max:10',
-            'nama_pembeli' => 'required|string|max:100',
+            'nomor_kursi' => [
+                'required',
+                Rule::unique('tickets')->where(function ($query) use ($request) {
+                    return $query->where('schedule_id', $request->schedule_id);
+                }),
+            ],
+            'nama_pembeli' => 'required|string',
             'email_pembeli' => 'required|email',
             'status' => 'required|in:terpesan,dibayar,dibatalkan',
         ]);
@@ -74,4 +80,11 @@ class TicketController extends Controller
 
         return redirect()->route('tickets.index')->with('success', 'Tiket berhasil dihapus.');
     }
+
+    public function getSeats($schedule_id)
+{
+    $bookedSeats = Ticket::where('schedule_id', $schedule_id)->pluck('nomor_kursi');
+    return response()->json($bookedSeats);
+}
+
 }

@@ -17,7 +17,7 @@ class MovieSeeder extends Seeder
                 'durasi' => 181
             ],
             [
-                'title' => 'Inside Out 2',
+                'judul' => 'Inside Out 2',
                 'genre' => 'Animation',
                 'sinopsis' => 'Animated journey inside the mind of a teenager.',
                 'durasi' => 95

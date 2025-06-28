@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('genre');
             $table->text('sinopsis')->nullable();
             $table->integer('durasi'); //* Hitungannya Menit
+            $table->string('poster')->nullable(); // URL atau path ke file
             $table->timestamps();
         });
     }

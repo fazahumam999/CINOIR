@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'CineGold')</title>
+    <title>@yield('title', 'CINOIR')</title>
 
     <!-- Bootstrap, DataTables, Icons & Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -100,7 +100,7 @@
     <!-- Sidebar -->
     <nav class="sidebar d-flex flex-column">
         <div class="sidebar-title">
-            <i class="bi bi-film"></i> CineGold
+            <i class="bi bi-film"></i> CINOIR
         </div>
         <a class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" href="/dashboard"><i class="bi bi-house-door"></i> Dashboard</a>
         <a class="nav-link {{ request()->is('cinemas*') ? 'active' : '' }}" href="/cinemas"><i class="bi bi-building"></i> Bioskop</a>

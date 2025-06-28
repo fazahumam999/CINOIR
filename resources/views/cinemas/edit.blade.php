@@ -16,8 +16,8 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Lokasi</label>
-                <input type="text" name="location" class="form-control" value="{{ $cinema->location }}" required>
+                <label class="form-label">Total Kursi</label>
+                <input type="number" name="total_kursi" class="form-control" value="{{ $cinema->total_kursi }}" required>
             </div>
 
             <a href="{{ route('cinemas.index') }}" class="btn btn-secondary">Kembali</a>

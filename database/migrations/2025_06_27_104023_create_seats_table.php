@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unique(['schedule_id', 'seat_number']);
         });
         
+        
     }
 
     /**

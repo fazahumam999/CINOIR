@@ -13,7 +13,7 @@
     </nav>
 </div>
 
-<div class="card mx-auto p-4" style="max-width: 600px;">
+<div class="card mx-auto p-4" style="max-width: 700px;">
     <h2 class="mb-4">Pesan Tiket</h2>
 
     <form action="{{ route('tickets.store') }}" method="POST">
@@ -21,7 +21,8 @@
 
         <div class="mb-3">
             <label class="form-label">Jadwal</label>
-            <select name="schedule_id" class="form-select" required>
+            <select name="schedule_id" id="schedule_id" class="form-select" required>
+                <option value="">-- Pilih Jadwal --</option>
                 @foreach ($schedules as $schedule)
                     <option value="{{ $schedule->id }}">
                         {{ $schedule->movie->judul }} - {{ $schedule->cinema->name }} ({{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('d M Y H:i') }})
@@ -31,8 +32,12 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Nomor Kursi</label>
-            <input type="text" name="nomor_kursi" class="form-control" required>
+            <label class="form-label">Pilih Kursi</label>
+            <div id="seat-picker" class="d-flex flex-wrap gap-2">
+                <small class="text-muted">Silakan pilih jadwal terlebih dahulu</small>
+            </div>
+            <input type="hidden" name="nomor_kursi" id="nomor_kursi" required>
+            <div class="form-text">🟩 = Tersedia, 🟥 = Terisi, 🟨 = Dipilih</div>
         </div>
 
         <div class="mb-3">
@@ -47,7 +52,7 @@
 
         <div class="mb-3">
             <label class="form-label">Status</label>
-            <select name="status" class="form-select">
+            <select name="status" class="form-select" required>
                 <option value="terpesan">Terpesan</option>
                 <option value="dibayar">Dibayar</option>
                 <option value="dibatalkan">Dibatalkan</option>
@@ -63,3 +68,52 @@
     </form>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    const seatPicker = document.getElementById('seat-picker');
+    const seatInput = document.getElementById('nomor_kursi');
+
+    function renderSeats(bookedSeats = []) {
+        seatPicker.innerHTML = '';
+        const rows = ['A', 'B', 'C', 'D', 'E'];
+        const seatsPerRow = 10;
+
+        rows.forEach(row => {
+            for (let i = 1; i <= seatsPerRow; i++) {
+                const seatId = row + i;
+                const btn = document.createElement('button');
+                btn.textContent = seatId;
+                btn.type = 'button';
+                btn.className = 'btn btn-sm me-1 mb-1 ' + 
+                    (bookedSeats.includes(seatId) ? 'btn-danger disabled' : 'btn-outline-success');
+
+                btn.onclick = () => {
+                    if (btn.classList.contains('disabled')) return;
+                    seatInput.value = seatId;
+
+                    document.querySelectorAll('#seat-picker .btn').forEach(b => {
+                        if (!b.classList.contains('disabled')) {
+                            b.className = 'btn btn-sm btn-outline-success me-1 mb-1';
+                        }
+                    });
+                    btn.className = 'btn btn-sm btn-warning me-1 mb-1';
+                };
+
+                seatPicker.appendChild(btn);
+            }
+        });
+    }
+
+    document.getElementById('schedule_id').addEventListener('change', function () {
+        const scheduleId = this.value;
+        if (!scheduleId) return seatPicker.innerHTML = '<small class="text-muted">Silakan pilih jadwal terlebih dahulu</small>';
+
+        fetch(`/get-seats/${scheduleId}`)
+            .then(response => response.json())
+            .then(data => {
+                renderSeats(data);
+            });
+    });
+</script>
+@endpush
