@@ -36,7 +36,7 @@
             <div id="seat-picker" class="d-flex flex-wrap gap-2">
                 <small class="text-muted">Silakan pilih jadwal terlebih dahulu</small>
             </div>
-            <input type="hidden" name="nomor_kursi" id="nomor_kursi" required>
+            <div id="nomor_kursi_inputs"></div>
             <div class="form-text">🟩 = Tersedia, 🟥 = Terisi, 🟨 = Dipilih</div>
         </div>
 
@@ -49,6 +49,7 @@
             <label class="form-label">Email Pembeli</label>
             <input type="email" name="email_pembeli" class="form-control" required>
         </div>
+        
 
         <div class="mb-3">
             <label class="form-label">Status</label>
@@ -72,10 +73,14 @@
 @push('scripts')
 <script>
     const seatPicker = document.getElementById('seat-picker');
-    const seatInput = document.getElementById('nomor_kursi');
+    const seatInputsContainer = document.getElementById('nomor_kursi_inputs');
+    let selectedSeats = [];
 
     function renderSeats(bookedSeats = []) {
         seatPicker.innerHTML = '';
+        seatInputsContainer.innerHTML = '';
+        selectedSeats = [];
+
         const rows = ['A', 'B', 'C', 'D', 'E'];
         const seatsPerRow = 10;
 
@@ -85,19 +90,31 @@
                 const btn = document.createElement('button');
                 btn.textContent = seatId;
                 btn.type = 'button';
-                btn.className = 'btn btn-sm me-1 mb-1 ' + 
+                btn.className = 'btn btn-sm me-1 mb-1 ' +
                     (bookedSeats.includes(seatId) ? 'btn-danger disabled' : 'btn-outline-success');
 
                 btn.onclick = () => {
                     if (btn.classList.contains('disabled')) return;
-                    seatInput.value = seatId;
 
-                    document.querySelectorAll('#seat-picker .btn').forEach(b => {
-                        if (!b.classList.contains('disabled')) {
-                            b.className = 'btn btn-sm btn-outline-success me-1 mb-1';
-                        }
+                    if (btn.classList.contains('btn-warning')) {
+                        btn.classList.remove('btn-warning');
+                        btn.classList.add('btn-outline-success');
+                        selectedSeats = selectedSeats.filter(seat => seat !== seatId);
+                    } else {
+                        btn.classList.remove('btn-outline-success');
+                        btn.classList.add('btn-warning');
+                        selectedSeats.push(seatId);
+                    }
+
+                    // Update hidden inputs
+                    seatInputsContainer.innerHTML = '';
+                    selectedSeats.forEach(seat => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'nomor_kursi[]';
+                        input.value = seat;
+                        seatInputsContainer.appendChild(input);
                     });
-                    btn.className = 'btn btn-sm btn-warning me-1 mb-1';
                 };
 
                 seatPicker.appendChild(btn);
@@ -107,7 +124,10 @@
 
     document.getElementById('schedule_id').addEventListener('change', function () {
         const scheduleId = this.value;
-        if (!scheduleId) return seatPicker.innerHTML = '<small class="text-muted">Silakan pilih jadwal terlebih dahulu</small>';
+        if (!scheduleId) {
+            seatPicker.innerHTML = '<small class="text-muted">Silakan pilih jadwal terlebih dahulu</small>';
+            return;
+        }
 
         fetch(`/get-seats/${scheduleId}`)
             .then(response => response.json())

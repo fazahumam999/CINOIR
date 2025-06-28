@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
@@ -23,26 +24,47 @@ class TicketController extends Controller
         return view('tickets.create', compact('schedules'));
     }
 
-    // Simpan tiket baru
-    public function store(Request $request)
-    {
-        $request->validate([
-            'schedule_id' => 'required|exists:schedules,id',
-            'nomor_kursi' => [
-                'required',
-                Rule::unique('tickets')->where(function ($query) use ($request) {
-                    return $query->where('schedule_id', $request->schedule_id);
-                }),
-            ],
-            'nama_pembeli' => 'required|string',
-            'email_pembeli' => 'required|email',
-            'status' => 'required|in:terpesan,dibayar,dibatalkan',
-        ]);
 
-        Ticket::create($request->all());
 
-        return redirect()->route('tickets.index')->with('success', 'Tiket berhasil dipesan.');
+public function store(Request $request)
+{
+    // Validasi array nomor_kursi dan isi lainnya
+    $validator = Validator::make($request->all(), [
+        'schedule_id' => 'required|exists:schedules,id',
+        'nomor_kursi' => 'required|array|min:1',
+        'nomor_kursi.*' => [
+            'required',
+            'string',
+            Rule::unique('tickets', 'nomor_kursi')->where(function ($query) use ($request) {
+                return $query->where('schedule_id', $request->schedule_id);
+            }),
+        ],
+        'nama_pembeli' => 'required|string|max:255',
+        'email_pembeli' => 'required|email|max:255',
+        'status' => 'required|in:terpesan,dibayar,dibatalkan',
+    ]);
+
+    // Jika validasi gagal
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
     }
+
+    // Simpan tiket satu per satu untuk tiap kursi
+    foreach ($request->nomor_kursi as $kursi) {
+        Ticket::create([
+            'schedule_id' => $request->schedule_id,
+            'nomor_kursi' => $kursi,
+            'nama_pembeli' => $request->nama_pembeli,
+            'email_pembeli' => $request->email_pembeli,
+            'status' => $request->status,
+        ]);
+    }
+
+    return redirect()->route('tickets.index')->with('success', 'Tiket berhasil dipesan.');
+}
+
 
     // Tampilkan detail tiket
     public function show(Ticket $ticket)
