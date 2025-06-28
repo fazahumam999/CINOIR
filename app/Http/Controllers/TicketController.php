@@ -105,8 +105,13 @@ public function store(Request $request)
 
     public function getSeats($schedule_id)
 {
+    $schedule = Schedule::findOrFail($schedule_id);
     $bookedSeats = Ticket::where('schedule_id', $schedule_id)->pluck('nomor_kursi');
-    return response()->json($bookedSeats);
+    return response()->json([
+        'booked' => $bookedSeats,
+        'harga' => $schedule->harga
+    ]);
 }
+
 
 }

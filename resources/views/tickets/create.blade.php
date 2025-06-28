@@ -50,6 +50,8 @@
             <input type="email" name="email_pembeli" class="form-control" required>
         </div>
         
+<input type="hidden" name="total_harga" id="total_harga_input">
+
 
         <div class="mb-3">
             <label class="form-label">Status</label>
@@ -59,6 +61,9 @@
                 <option value="dibatalkan">Dibatalkan</option>
             </select>
         </div>
+        <div class="mb-3">
+    <strong>Total Harga:</strong> <span id="total_harga">Rp0</span>
+</div>
 
         <a href="{{ route('tickets.index') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left-circle"></i> Kembali
@@ -75,6 +80,7 @@
     const seatPicker = document.getElementById('seat-picker');
     const seatInputsContainer = document.getElementById('nomor_kursi_inputs');
     let selectedSeats = [];
+    let hargaTiket = 0;
 
     function renderSeats(bookedSeats = []) {
         seatPicker.innerHTML = '';
@@ -97,29 +103,50 @@
                     if (btn.classList.contains('disabled')) return;
 
                     if (btn.classList.contains('btn-warning')) {
+                        // Batal pilih kursi
                         btn.classList.remove('btn-warning');
                         btn.classList.add('btn-outline-success');
                         selectedSeats = selectedSeats.filter(seat => seat !== seatId);
                     } else {
+                        // Pilih kursi
                         btn.classList.remove('btn-outline-success');
                         btn.classList.add('btn-warning');
                         selectedSeats.push(seatId);
                     }
 
-                    // Update hidden inputs
-                    seatInputsContainer.innerHTML = '';
-                    selectedSeats.forEach(seat => {
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = 'nomor_kursi[]';
-                        input.value = seat;
-                        seatInputsContainer.appendChild(input);
-                    });
+                    updateSelectedSeats(); // Update input hidden dan harga total
                 };
 
                 seatPicker.appendChild(btn);
             }
         });
+    }
+
+    function updateSelectedSeats() {
+        seatInputsContainer.innerHTML = '';
+        selectedSeats.forEach(seat => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'nomor_kursi[]';
+            input.value = seat;
+            seatInputsContainer.appendChild(input);
+        });
+
+        updateTotalHarga();
+    }
+
+    function updateTotalHarga() {
+        const total = selectedSeats.length * hargaTiket;
+        document.getElementById('total_harga').textContent = formatRupiah(total);
+        document.getElementById('total_harga_input').value = total;
+    }
+
+    function formatRupiah(angka) {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+        }).format(angka);
     }
 
     document.getElementById('schedule_id').addEventListener('change', function () {
@@ -132,7 +159,9 @@
         fetch(`/get-seats/${scheduleId}`)
             .then(response => response.json())
             .then(data => {
-                renderSeats(data);
+                renderSeats(data.booked);
+                hargaTiket = data.harga || 0;
+                updateTotalHarga(); // reset total jika user pilih ulang
             });
     });
 </script>
