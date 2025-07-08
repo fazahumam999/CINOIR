@@ -8,5 +8,5 @@
     <p><strong>Durasi:</strong> {{ $movie->durasi }} menit</p>
     <p><strong>Sinopsis:</strong> {{ $movie->sinopsis }}</p>
 
-    <a href="{{ route('movies.index') }}">← Kembali ke daftar</a>
+    <a href="{{ route('admin.movies.index') }}">← Kembali ke daftar</a>
 @endsection

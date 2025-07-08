@@ -6,7 +6,7 @@
 <div class="mb-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent px-0">
-            <li class="breadcrumb-item"><a href="/dashboard" class="text-warning">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
             <li class="breadcrumb-item active text-white" aria-current="page">Bioskop</li>
         </ol>
     </nav>
@@ -16,7 +16,7 @@
 <div class="card border-0 shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center bg-warning text-dark fw-bold">
         <span><i class="bi bi-collection-play-fill"></i> Data Bioskop</span>
-        <a href="{{ route('cinemas.create') }}" class="btn btn-success">+ Tambah Bioskop</a>
+        <a href="{{ route('admin.cinemas.create') }}" class="btn btn-success">+ Tambah Bioskop</a>
     </div>
     <div class="card-body bg-white rounded-bottom">
         <div class="table-responsive">
@@ -37,8 +37,8 @@
                             <td>{{ $cinema->name }}</td>
                             <td>{{ $cinema->total_kursi }}</td>
                             <td>
-                                <a href="{{ route('cinemas.edit', $cinema->id) }}" class="btn btn-sm btn-warning">Ubah</a>
-                                <form action="{{ route('cinemas.destroy', $cinema->id) }}" method="POST" class="d-inline">
+                                <a href="{{ route('admin.cinemas.edit', $cinema->id) }}" class="btn btn-sm btn-warning">Ubah</a>
+                                <form action="{{ route('admin.cinemas.destroy', $cinema->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Yakin ingin menghapus bioskop ini?')" type="submit" class="btn btn-sm btn-danger">Hapus</button>

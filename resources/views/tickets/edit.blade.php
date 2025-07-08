@@ -6,8 +6,8 @@
 <div class="mb-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent px-0">
-            <li class="breadcrumb-item"><a href="/dashboard" class="text-warning">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('tickets.index') }}" class="text-warning">Tiket</a></li>
+            <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.tickets.index') }}" class="text-warning">Tiket</a></li>
             <li class="breadcrumb-item active text-white" aria-current="page">Edit</li>
         </ol>
     </nav>
@@ -16,7 +16,7 @@
 <div class="card mx-auto p-4" style="max-width: 600px;">
     <h2 class="mb-4">Edit Tiket</h2>
 
-    <form action="{{ route('tickets.update', $ticket->id) }}" method="POST">
+    <form action="{{ route('admin.tickets.update', $ticket->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -55,7 +55,7 @@
             </select>
         </div>
 
-        <a href="{{ route('tickets.index') }}" class="btn btn-secondary">
+        <a href="{{ route('admin.tickets.index') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left-circle"></i> Kembali
         </a>
         <button type="submit" class="btn btn-warning text-dark fw-bold">

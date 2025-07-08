@@ -6,7 +6,7 @@
 <div class="mb-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent px-0">
-            <li class="breadcrumb-item"><a href="/dashboard" class="text-warning">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
             <li class="breadcrumb-item active text-white" aria-current="page">Tiket</li>
         </ol>
     </nav>
@@ -15,7 +15,7 @@
 <div class="card border-0 shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center bg-warning text-dark fw-bold">
         <span><i class="bi bi-ticket-perforated"></i> Daftar Tiket</span>
-        <a href="{{ route('tickets.create') }}" class="btn btn-success">+ Pesan Tiket</a>
+        <a href="{{ route('admin.tickets.create') }}" class="btn btn-success">+ Pesan Tiket</a>
     </div>
     <div class="card-body bg-white rounded-bottom">
         <div class="table-responsive">
@@ -39,8 +39,8 @@
                             <td>{{ $ticket->email_pembeli }}</td>
                             <td><span class="badge bg-secondary">{{ ucfirst($ticket->status) }}</span></td>
                             <td>
-                                <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-sm btn-warning">Ubah</a>
-                                <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" class="d-inline">
+                                <a href="{{ route('admin.tickets.edit', $ticket->id) }}" class="btn btn-sm btn-warning">Ubah</a>
+                                <form action="{{ route('admin.tickets.destroy', $ticket->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Yakin ingin menghapus tiket ini?')" type="submit" class="btn btn-sm btn-danger">Hapus</button>

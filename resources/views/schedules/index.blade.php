@@ -6,7 +6,7 @@
 <div class="mb-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent px-0">
-            <li class="breadcrumb-item"><a href="/dashboard" class="text-warning">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
             <li class="breadcrumb-item active text-white" aria-current="page">Jadwal Tayang</li>
         </ol>
     </nav>
@@ -15,7 +15,7 @@
 <div class="card border-0 shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center bg-warning text-dark fw-bold">
         <span><i class="bi bi-calendar-event"></i> Jadwal Tayang</span>
-        <a href="{{ route('schedules.create') }}" class="btn btn-success">+ Tambah Jadwal</a>
+        <a href="{{ route('admin.schedules.create') }}" class="btn btn-success">+ Tambah Jadwal</a>
     </div>
     <div class="card-body bg-white rounded-bottom">
         <div class="table-responsive">
@@ -37,8 +37,8 @@
                             <td>{{ \Carbon\Carbon::parse($schedule->waktu_mulai)->format('d M Y, H:i') }}</td>
                             <td>Rp{{ number_format($schedule->harga, 0, ',', '.') }}</td>
                             <td>
-                                <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-sm btn-warning">Ubah</a>
-                                <form action="{{ route('schedules.destroy', $schedule->id) }}" method="POST" class="d-inline">
+                                <a href="{{ route('admin.schedules.edit', $schedule->id) }}" class="btn btn-sm btn-warning">Ubah</a>
+                                <form action="{{ route('admin.schedules.destroy', $schedule->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Yakin ingin menghapus jadwal ini?')" type="submit" class="btn btn-sm btn-danger">Hapus</button>

@@ -6,5 +6,5 @@
     <p><strong>Nama:</strong> {{ $user->name }}</p>
     <p><strong>Email:</strong> {{ $user->email }}</p>
 
-    <a href="{{ route('users.index') }}">← Kembali ke daftar</a>
+    <a href="{{ route('admin.users.index') }}">← Kembali ke daftar</a>
 @endsection

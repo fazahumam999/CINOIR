@@ -102,12 +102,13 @@
         <div class="sidebar-title">
             <i class="bi bi-film"></i> CINOIR
         </div>
-        <a class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" href="/dashboard"><i class="bi bi-house-door"></i> Dashboard</a>
-        <a class="nav-link {{ request()->is('cinemas*') ? 'active' : '' }}" href="/cinemas"><i class="bi bi-building"></i> Bioskop</a>
-        <a class="nav-link {{ request()->is('movies*') ? 'active' : '' }}" href="/movies"><i class="bi bi-camera-reels"></i> Film</a>
-        <a class="nav-link {{ request()->is('schedules*') ? 'active' : '' }}" href="/schedules"><i class="bi bi-calendar3"></i> Jadwal</a>
-        <a class="nav-link {{ request()->is('tickets*') ? 'active' : '' }}" href="/tickets"><i class="bi bi-ticket-detailed"></i> Tiket</a>
-        <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="/users"><i class="bi bi-person"></i> Pengguna</a>
+        <a class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}" href="/admin/dashboard"><i class="bi bi-house-door"></i> Dashboard</a>
+        <a class="nav-link {{ request()->is('admin/cinemas*') ? 'active' : '' }}" href="/admin/cinemas"><i class="bi bi-building"></i> Bioskop</a>
+        <a class="nav-link {{ request()->is('admin/movies*') ? 'active' : '' }}" href="/admin/movies"><i class="bi bi-camera-reels"></i> Film</a>
+        <a class="nav-link {{ request()->is('admin/banners*') ? 'active' : '' }}" href="{{ route('admin.banners.index') }}"><i class="bi bi-image"></i> Promotion</a>
+        <a class="nav-link {{ request()->is('admin/schedules*') ? 'active' : '' }}" href="/admin/schedules"><i class="bi bi-calendar3"></i> Jadwal</a>
+        <a class="nav-link {{ request()->is('admin/tickets*') ? 'active' : '' }}" href="/admin/tickets"><i class="bi bi-ticket-detailed"></i> Tiket</a>
+        <a class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}" href="/admin/users"><i class="bi bi-person"></i> Pengguna</a>
     </nav>
 
     <!-- Main Content -->

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seat;
 use App\Models\Schedule;
@@ -12,7 +13,7 @@ class SeatController extends Controller
     {
         $schedule = Schedule::with(['movie', 'cinema', 'seats'])->findOrFail($schedule_id);
     
-        // Jika belum ada kursi, generate default (contoh: 5 baris x 10 kolom)
+        
         if ($schedule->seats->isEmpty()) {
             $rows = ['A', 'B', 'C', 'D', 'E'];
             for ($i = 1; $i <= 10; $i++) {
@@ -27,7 +28,7 @@ class SeatController extends Controller
             $schedule->load('seats');
         }
     
-        return view('seats.picker', compact('schedule'));
+        return view('admin.seats.picker', compact('schedule'));
     }
     
     public function reserve(Request $request, $schedule_id)
@@ -38,26 +39,26 @@ class SeatController extends Controller
 
     $selectedSeats = $request->selected_seats;
 
-    // Ambil seat yang masih tersedia dari database
+    
     $availableSeats = Seat::where('schedule_id', $schedule_id)
         ->whereIn('seat_number', $selectedSeats)
         ->where('status', 'tersedia')
         ->pluck('seat_number')
         ->toArray();
 
-    // Cek jika ada kursi yang tidak tersedia
+    
     $unavailable = array_diff($selectedSeats, $availableSeats);
 
     if (!empty($unavailable)) {
         return back()->with('error', 'Beberapa kursi telah dipesan oleh orang lain: ' . implode(', ', $unavailable));
     }
 
-    // Update kursi yang valid
+    
     Seat::where('schedule_id', $schedule_id)
         ->whereIn('seat_number', $availableSeats)
         ->update(['status' => 'terpesan']);
 
-    return redirect()->route('tickets.index')->with('success', 'Kursi berhasil dipesan!');
+    return redirect()->route('admin.tickets.index')->with('success', 'Kursi berhasil dipesan!');
 }
 
 public function seatStatus($schedule_id)
@@ -72,7 +73,7 @@ public function seatStatus($schedule_id)
 public function index(Schedule $schedule)
 {
     $seats = Seat::where('schedule_id', $schedule->id)->get();
-    return view('seats.index', compact('schedule', 'seats'));
+    return view('admin.seats.index', compact('schedule', 'seats'));
 }
 
 public function book(Request $request)
@@ -96,7 +97,7 @@ public function book(Request $request)
         ['status' => 'terpesan']
     );
 
-    return redirect()->route('seats.index', $request->schedule_id)->with('success', 'Kursi berhasil dipesan.');
+    return redirect()->route('admin.seats.index', $request->schedule_id)->with('success', 'Kursi berhasil dipesan.');
 }
 
 }

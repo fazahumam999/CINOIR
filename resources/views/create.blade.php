@@ -3,7 +3,7 @@
 @section('content')
     <h1>Tambah User</h1>
 
-    <form action="{{ route('users.store') }}" method="POST">
+    <form action="{{ route('admin.users.store') }}" method="POST">
         @csrf
         <label>Nama:</label><br>
         <input type="text" name="name"><br><br>

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
@@ -10,14 +11,14 @@ use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
-    // Tampilkan semua tiket
+    
     public function index()
     {
         $tickets = Ticket::with('schedule')->get();
         return view('tickets.index', compact('tickets'));
     }
 
-    // Tampilkan form untuk membuat tiket
+    
     public function create()
     {
         $schedules = Schedule::with('movie', 'cinema')->get();
@@ -28,7 +29,7 @@ class TicketController extends Controller
 
 public function store(Request $request)
 {
-    // Validasi array nomor_kursi dan isi lainnya
+    
     $validator = Validator::make($request->all(), [
         'schedule_id' => 'required|exists:schedules,id',
         'nomor_kursi' => 'required|array|min:1',
@@ -44,14 +45,14 @@ public function store(Request $request)
         'status' => 'required|in:terpesan,dibayar,dibatalkan',
     ]);
 
-    // Jika validasi gagal
+    
     if ($validator->fails()) {
         return redirect()->back()
             ->withErrors($validator)
             ->withInput();
     }
 
-    // Simpan tiket satu per satu untuk tiap kursi
+    
     foreach ($request->nomor_kursi as $kursi) {
         Ticket::create([
             'schedule_id' => $request->schedule_id,
@@ -62,24 +63,24 @@ public function store(Request $request)
         ]);
     }
 
-    return redirect()->route('tickets.index')->with('success', 'Tiket berhasil dipesan.');
+    return redirect()->route('admin.tickets.index')->with('success', 'Tiket berhasil dipesan.');
 }
 
 
-    // Tampilkan detail tiket
+    
     public function show(Ticket $ticket)
     {
-        return view('tickets.show', compact('ticket'));
+        return view('admin.tickets.show', compact('ticket'));
     }
 
-    // Tampilkan form edit tiket
+    
     public function edit(Ticket $ticket)
     {
         $schedules = Schedule::with('movie', 'cinema')->get();
         return view('tickets.edit', compact('ticket', 'schedules'));
     }
 
-    // Update tiket
+    
     public function update(Request $request, Ticket $ticket)
     {
         $request->validate([
@@ -92,15 +93,15 @@ public function store(Request $request)
 
         $ticket->update($request->all());
 
-        return redirect()->route('tickets.index')->with('success', 'Tiket berhasil diperbarui.');
+        return redirect()->route('admin.tickets.index')->with('success', 'Tiket berhasil diperbarui.');
     }
 
-    // Hapus tiket
+    
     public function destroy(Ticket $ticket)
     {
         $ticket->delete();
 
-        return redirect()->route('tickets.index')->with('success', 'Tiket berhasil dihapus.');
+        return redirect()->route('admin.tickets.index')->with('success', 'Tiket berhasil dihapus.');
     }
 
     public function getSeats($schedule_id)

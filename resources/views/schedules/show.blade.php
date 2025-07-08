@@ -8,5 +8,5 @@
     <p><strong>Waktu Mulai:</strong> {{ $schedule->waktu_mulai }}</p>
     <p><strong>Harga:</strong> Rp{{ number_format($schedule->harga, 0, ',', '.') }}</p>
 
-    <a href="{{ route('schedules.index') }}">← Kembali ke daftar</a>
+    <a href="{{ route('admin.schedules.index') }}">← Kembali ke daftar</a>
 @endsection

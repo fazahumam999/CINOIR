@@ -9,7 +9,16 @@ class Movie extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['judul', 'genre', 'sinopsis', 'durasi'];
+    protected $fillable = [
+        'judul',
+        'genre',
+        'sinopsis',
+        'durasi',
+        'rating',
+        'status',
+        'poster',
+    ];
+
 
     public function schedules()
     {

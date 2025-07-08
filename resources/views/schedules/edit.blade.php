@@ -6,8 +6,8 @@
 <div class="mb-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent px-0">
-            <li class="breadcrumb-item"><a href="/dashboard" class="text-warning">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('schedules.index') }}" class="text-warning">Jadwal</a></li>
+            <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.schedules.index') }}" class="text-warning">Jadwal</a></li>
             <li class="breadcrumb-item active text-white" aria-current="page">Edit</li>
         </ol>
     </nav>
@@ -16,7 +16,7 @@
 <div class="card mx-auto p-4" style="max-width: 600px;">
     <h2 class="mb-4">Edit Jadwal Tayang</h2>
 
-    <form action="{{ route('schedules.update', $schedule->id) }}" method="POST">
+    <form action="{{ route('admin.schedules.update', $schedule->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -52,7 +52,7 @@
             <input type="number" name="harga" class="form-control" value="{{ $schedule->harga }}">
         </div>
 
-        <a href="{{ route('schedules.index') }}" class="btn btn-secondary">
+        <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left-circle"></i> Kembali
         </a>
         <button type="submit" class="btn btn-primary">

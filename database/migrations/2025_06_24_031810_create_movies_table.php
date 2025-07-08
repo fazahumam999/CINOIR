@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('genre');
             $table->text('sinopsis')->nullable();
             $table->integer('durasi'); //* Hitungannya Menit
+            $table->float('rating')->default(0); // ⭐ Tambahan: nilai rating
+            $table->string('status')->default('now'); // ⭐ Tambahan: now / coming
             $table->string('poster')->nullable(); // URL atau path ke file
             $table->timestamps();
         });

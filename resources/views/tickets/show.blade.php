@@ -11,5 +11,5 @@
     <p><strong>Email Pembeli:</strong> {{ $ticket->email_pembeli }}</p>
     <p><strong>Status:</strong> {{ ucfirst($ticket->status) }}</p>
 
-    <a href="{{ route('tickets.index') }}">← Kembali ke daftar</a>
+    <a href="{{ route('admin.tickets.index') }}">← Kembali ke daftar</a>
 @endsection

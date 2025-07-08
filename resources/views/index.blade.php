@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Daftar User</h1>
-    <a href="{{ route('users.create') }}">+ Tambah User</a>
+    <a href="{{ route('admin.users.create') }}">+ Tambah User</a>
 
     <table border="1" cellpadding="10">
         <thead>
@@ -18,9 +18,9 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="{{ route('users.show', $user->id) }}">Detail</a> |
-                        <a href="{{ route('users.edit', $user->id) }}">Edit</a> |
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline">
+                        <a href="{{ route('admin.users.show', $user->id) }}">Detail</a> |
+                        <a href="{{ route('admin.users.edit', $user->id) }}">Edit</a> |
+                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" style="display:inline">
                             @csrf
                             @method('DELETE')
                             <button type="submit" onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>

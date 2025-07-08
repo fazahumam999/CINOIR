@@ -5,7 +5,7 @@
 <div class="card p-4">
     <h3 class="mb-4">Pilih Kursi untuk {{ $schedule->movie->judul }} @ {{ $schedule->cinema->name }}</h3>
 
-    <form action="{{ route('seats.reserve', $schedule->id) }}" method="POST">
+    <form action="{{ route('admin.seats.reserve', $schedule->id) }}" method="POST">
         @csrf
         <div class="d-flex flex-wrap" style="max-width: 600px;">
         @foreach ($seats as $seat)
@@ -23,7 +23,7 @@
 
         <div class="mt-4">
             <button class="btn btn-success" type="submit">Pesan Kursi</button>
-            <a href="{{ route('schedules.index') }}" class="btn btn-secondary">Kembali</a>
+            <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
     </form>
 </div>
