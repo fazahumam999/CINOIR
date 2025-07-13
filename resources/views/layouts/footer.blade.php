@@ -16,8 +16,8 @@
             <div>
                 <h3 class="text-lg font-bold mb-4">Quick Links</h3>
                 <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-400 hover:text-blue-400">Home</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-blue-400">Movies</a></li>
+                    <li><a href="{{ url('/') }}" class="text-gray-400 hover:text-blue-400">Home</a></li>
+                    <li><a href="{{ route('films.index') }}" class="text-gray-400 hover:text-blue-400">Movies</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-blue-400">Cinemas</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-blue-400">Promotions</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-blue-400">Gift Cards</a></li>
@@ -30,11 +30,11 @@
                 <ul class="space-y-2 text-gray-400">
                     <li class="flex items-center">
                         <i class="fas fa-map-marker-alt mr-2 text-blue-400"></i>
-                        123 Cinema Street, NY
+                        123 Kopo, Bandung
                     </li>
                     <li class="flex items-center">
                         <i class="fas fa-phone mr-2 text-blue-400"></i>
-                        (123) 456-7890
+                        (+62) 456-7890
                     </li>
                     <li class="flex items-center">
                         <i class="fas fa-envelope mr-2 text-blue-400"></i>
@@ -73,7 +73,7 @@
         </div>
 
         <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500">
-            <p>&copy; 2023 Cinoir Cinemas. All Rights Reserved.</p>
+            <p>&copy; 2025 Cinoir Cinemas. All Rights Reserved.</p>
         </div>
     </div>
 </footer>

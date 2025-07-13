@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('description')->nullable();
-            $table->string('image'); // path gambar
+            $table->string('image')->nullable();
+            $table->string('video')->nullable();
+            $table->string('type')->nullable();
             $table->timestamps();
 
         });

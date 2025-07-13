@@ -14,17 +14,47 @@
     <div class="card mx-auto p-4" style="max-width: 600px;">
         <h2 class="mb-4">Tambah Bioskop</h2>
 
-        <form action="{{ route('admin.cinemas.store') }}" method="POST">
+        <form action="{{ route('admin.cinemas.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label class="form-label">Nama Bioskop</label>
                 <input type="text" name="name" class="form-control" required>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Total Kursi</label>
-                <input type="number" name="total_kursi" class="form-control" required>
-            </div>
+<div class="mb-3">
+    <label class="form-label">Total Auditoriums</label>
+    <input type="number" name="total_auditoriums" class="form-control" required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Kota</label>
+    <input type="text" name="kota" class="form-control" required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Experience</label>
+    <input type="text" name="experience" class="form-control" placeholder="IMAX, 4DX, Dolby Atmos">
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Foto Bioskop</label>
+    <input type="file" name="image" class="form-control">
+</div>
+
+
+<div class="mb-3">
+    <label class="form-label">Jenis Experience</label><br>
+    @php
+        $experiences = ['IMAX', '4DX', 'Real3D', 'Dolby Atmos', 'Regular', 'SweetBox'];
+    @endphp
+    @foreach ($experiences as $exp)
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" name="experiences[]" value="{{ $exp }}">
+            <label class="form-check-label">{{ $exp }}</label>
+        </div>
+    @endforeach
+</div>
+
 
             <a href="{{ route('admin.cinemas.index') }}" class="btn btn-secondary">
                         <i class="bi bi-arrow-left-circle"></i> Kembali

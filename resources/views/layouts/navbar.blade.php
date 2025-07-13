@@ -42,7 +42,7 @@
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="{{ url('/') }}" class="nav-link hover:text-blue-400">Home</a>
                 <a href="{{ route('films.index') }}" class="nav-link hover:text-blue-400">Films</a>
-                <a href="#" class="nav-link hover:text-blue-400">Cinemas</a>
+                <a href="{{ route('cinemas.index') }}" class="nav-link hover:text-blue-400">Cinemas</a>
                 <a href="#" class="nav-link hover:text-blue-400">Contact Us</a>
             </nav>
 
@@ -68,9 +68,7 @@
         @yield('content')
     </main>
 
-    {{-- Footer --}}
-    <footer class="bg-gray-800 py-6 text-center text-gray-400">
-        &copy; {{ date('Y') }} CINOIR. All rights reserved.
-    </footer>
+    
+    
 </body>
 </html>
