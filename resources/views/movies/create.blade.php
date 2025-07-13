@@ -52,7 +52,7 @@
             <label class="form-label">Status</label>
             <select name="status" class="form-control" required>
                 <option value="now">Now Showing</option>
-                <option value="coming">Coming Soon</option>
+                <option value="soon">Coming Soon</option>
             </select>
         </div>
 

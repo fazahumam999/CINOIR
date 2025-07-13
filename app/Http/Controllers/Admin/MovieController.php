@@ -32,7 +32,9 @@ class MovieController extends Controller
             'durasi' => 'required|integer|min:1',
             'rating' => 'required|numeric',
             'status' => 'required|in:now,coming',
-            'poster' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            'poster' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'required|in:now,soon'
+
         ]);
 
         $posterPath = null;
@@ -77,7 +79,10 @@ class MovieController extends Controller
             'durasi' => 'required|integer|min:1',
             'rating' => 'required|numeric',
             'status' => 'required|in:now,coming',
-            'poster' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'poster' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'required|in:now,soon'
+
+            
         ]);
 
         $data = $request->only(['judul', 'genre', 'sinopsis', 'durasi', 'rating', 'status']);
@@ -94,6 +99,7 @@ class MovieController extends Controller
         $movie->update($data);
 
         return redirect()->route('admin.movies.index')->with('success', 'Film berhasil diperbarui.');
+        
     }
 
     
