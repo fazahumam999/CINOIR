@@ -7,7 +7,9 @@ use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\SchedulesController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\SeatController;
+use App\Http\Controllers\FilmController;
 use App\Http\Controllers\Admin\UserController;
+
 
  
 // Halaman beranda (opsional)
@@ -38,6 +40,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('banners', App\Http\Controllers\Admin\BannerController::class);
 });
+
+Route::get('/films', [FilmController::class, 'index'])->name('films.index');
+
 
 
 

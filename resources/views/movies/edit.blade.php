@@ -39,9 +39,10 @@
                 <label class="form-label">Status</label>
                 <select name="status" class="form-select">
                     <option value="now" {{ $movie->status == 'now' ? 'selected' : '' }}>Now Showing</option>
-                    <option value="coming" {{ $movie->status == 'coming' ? 'selected' : '' }}>Coming Soon</option>
+                    <option value="soon" {{ $movie->status == 'soon' ? 'selected' : '' }}>Coming Soon</option>
                 </select>
             </div>
+
 
             <div class="mb-3">
                 <label class="form-label">Poster</label>
