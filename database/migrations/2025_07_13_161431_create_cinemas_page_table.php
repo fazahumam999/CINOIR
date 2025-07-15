@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('cinemas_page', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
-            $table->string('description')->nullable();
+            $table->string('name');
+            $table->string('location');
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('video')->nullable();
-            $table->string('type')->nullable();
             $table->timestamps();
-
+        
         });
 
     }
@@ -29,6 +28,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('banners');
+        Schema::table('cinemas', function (Blueprint $table) {
+        $table->dropColumn(['total_auditoriums', 'kota', 'experience', 'image']);
+    });
     }
 };

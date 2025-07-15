@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SchedulesController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\SeatController;
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\CinemasController;
 use App\Http\Controllers\Admin\UserController;
 
 
@@ -42,6 +43,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::get('/films', [FilmController::class, 'index'])->name('films.index');
+
+Route::get('/films/now-showing', [FilmController::class, 'nowShowing'])->name('films.now_showing');
+Route::get('/films/coming-soon', [FilmController::class, 'comingSoon'])->name('films.coming_soon');
+
+Route::get('/cinemas', [CinemasController::class, 'index'])->name('cinemas.index');
+
 
 
 

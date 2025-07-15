@@ -30,8 +30,14 @@
 
         <div class="mb-3">
             <label class="form-label">Gambar Banner</label>
-            <input type="file" name="image" class="form-control" accept="image/*" required>
+            <input type="file" name="image" class="form-control" accept="image/*">
         </div>
+
+        <div class="mb-3">
+            <label class="form-label">Video Banner</label>
+            <input type="file" name="video" class="form-control" accept="video/mp4,video/webm,video/ogg">
+            <small class="text-muted">Format yang didukung: MP4, WebM, OGG</small>
+        </div
 
         <a href="{{ route('admin.banners.index') }}" class="btn btn-secondary">
             <i class="bi bi-arrow-left-circle"></i> Kembali

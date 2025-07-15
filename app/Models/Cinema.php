@@ -9,7 +9,8 @@ class Cinema extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'total_kursi'];
+    // Disesuaikan dengan data yang digunakan sekarang
+    protected $fillable = ['name', 'kota', 'image'];
 
     public function schedules()
     {

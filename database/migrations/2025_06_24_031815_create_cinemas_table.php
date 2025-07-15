@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('cinemas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('total_kursi');
+            $table->string('kota')->nullable();     // Kota/alamat
+            $table->string('image')->nullable();    // Foto bioskop
             $table->timestamps();
         });
     }
