@@ -5,7 +5,7 @@
 @section('content')
 <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <span><i class="bi bi-collection-play-fill me-2"></i>Data Film</span>
+        <span><i class="bi bi-collection-play-fill me-2"></i>Daftar Film</span>
         <a href="{{ route('admin.movies.create') }}" class="btn btn-sm btn-primary">+ Tambah Film</a>
     </div>
     <div class="card-body">
@@ -25,40 +25,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($movies as $index => $movie)
+                    @foreach ($movies as $index => $movie)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $movie->judul }}</td>
                             <td>{{ $movie->genre }}</td>
                             <td>{{ $movie->durasi }} menit</td>
-                            <td>{{ Str::limit($movie->sinopsis, 80) }}</td>
+                            <td>{{ $movie->sinopsis }}</td>
                             <td>{{ $movie->rating ?? '0' }}</td>
                             <td>{{ $movie->status ?? '-' }}</td>
                             <td>
                                 @if ($movie->poster)
-                                    <img src="{{ asset('storage/' . $movie->poster) }}" alt="Poster" width="60" class="img-thumbnail">
+                                    <img src="{{ asset('storage/' . $movie->poster) }}" alt="Poster" width="60">
                                 @else
                                     -
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin.movies.edit', $movie->id) }}" class="btn btn-sm btn-outline-secondary me-1">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
+                            <a href="{{ route('admin.movies.edit', $movie->id) }}" class="btn btn-sm btn-outline-secondary">Ubah</a>
                                 <form action="{{ route('admin.movies.destroy', $movie->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Yakin ingin menghapus film ini?')" type="submit" class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                    <button onclick="return confirm('Yakin ingin menghapus film ini?')" type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
                                 </form>
                             </td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="9" class="text-center">Belum ada data film.</td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>

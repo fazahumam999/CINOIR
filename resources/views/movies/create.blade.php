@@ -48,7 +48,8 @@
         </div>
 
         <a href="{{ route('admin.movies.index') }}" class="btn btn-secondary">Kembali</a>
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-success">Simpan
+        </button>
     </form>
 </div>
 
