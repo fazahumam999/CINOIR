@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('cinemas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('total_auditoriums')->default(1);
-            $table->string('kota')->nullable();
-            $table->string('experience')->nullable(); 
-            $table->string('image')->nullable(); 
+            $table->string('kota')->nullable();     // Kota/alamat
+            $table->string('image')->nullable();    // Foto bioskop
             $table->timestamps();
         });
     }

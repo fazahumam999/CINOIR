@@ -12,7 +12,6 @@
     </nav>
 </div>
 
-
 <div class="card border-0 shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center bg-warning text-dark fw-bold">
         <span><i class="bi bi-collection-play-fill"></i> Data Bioskop</span>
@@ -20,45 +19,40 @@
     </div>
     <div class="card-body bg-white rounded-bottom">
         <div class="table-responsive">
-        
             <table id="dataTable" class="table table-striped table-bordered">
                 <thead class="table-warning text-dark">
                     <tr>
                         <th width="5%">#</th>
                         <th>Nama Bioskop</th>
                         <th>Foto</th>
-                        <th>Total Auditoriums</th>
                         <th>Kota</th>
-                        <th>Experience</th>
                         <th width="20%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-    @foreach ($cinemas as $index => $cinema)
-        <tr>
-            <td>{{ $index + 1 }}</td>
-            <td>{{ $cinema->name }}</td>
-            <td>
-                @if($cinema->image)
-                    <img src="{{ asset('storage/' . $cinema->image) }}" alt="Foto Bioskop" width="100">
-                @else
-                    <span class="text-muted">Tidak ada gambar</span>
-                @endif
-            </td>
-            <td>{{ $cinema->total_auditoriums }}</td>
-            <td>{{ $cinema->kota ?? '-' }}</td>
-            <td>{{ $cinema->experience ?? '-' }}</td>
-            <td>
-                <a href="{{ route('admin.cinemas.edit', $cinema->id) }}" class="btn btn-sm btn-warning">Ubah</a>
-                <form action="{{ route('admin.cinemas.destroy', $cinema->id) }}" method="POST" class="d-inline">
-                    @csrf
-                    @method('DELETE')
-                    <button onclick="return confirm('Yakin ingin menghapus bioskop ini?')" type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                </form>
-            </td>
-        </tr>
-    @endforeach
-</tbody>
+                    @foreach ($cinemas as $index => $cinema)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $cinema->name }}</td>
+                            <td>
+                                @if($cinema->image)
+                                    <img src="{{ asset('storage/' . $cinema->image) }}" alt="Foto Bioskop" width="100">
+                                @else
+                                    <span class="text-muted">Tidak ada gambar</span>
+                                @endif
+                            </td>
+                            <td>{{ $cinema->kota ?? '-' }}</td>
+                            <td>
+                                <a href="{{ route('admin.cinemas.edit', $cinema->id) }}" class="btn btn-sm btn-warning">Ubah</a>
+                                <form action="{{ route('admin.cinemas.destroy', $cinema->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button onclick="return confirm('Yakin ingin menghapus bioskop ini?')" type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
     </div>
