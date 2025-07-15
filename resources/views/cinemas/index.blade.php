@@ -1,51 +1,48 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Bioskop')
+@section('title', 'Manajemen Bioskop')
 
 @section('content')
-<div class="mb-3">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-transparent px-0">
-            <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
-            <li class="breadcrumb-item active text-white" aria-current="page">Bioskop</li>
-        </ol>
-    </nav>
-</div>
-
-
-<div class="card border-0 shadow-sm">
-    <div class="card-header d-flex justify-content-between align-items-center bg-warning text-dark fw-bold">
-        <span><i class="bi bi-collection-play-fill"></i> Data Bioskop</span>
-        <a href="{{ route('admin.cinemas.create') }}" class="btn btn-success">+ Tambah Bioskop</a>
+<div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <span><i class="bi bi-building me-2"></i>Data Bioskop</span>
+        <a href="{{ route('admin.cinemas.create') }}" class="btn btn-sm btn-primary">+ Tambah Bioskop</a>
     </div>
-    <div class="card-body bg-white rounded-bottom">
+    <div class="card-body">
         <div class="table-responsive">
-        
-            <table id="dataTable" class="table table-striped table-bordered">
-                <thead class="table-warning text-dark">
+            <table id="dataTable" class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
                     <tr>
                         <th width="5%">#</th>
                         <th>Nama Bioskop</th>
                         <th>Total Kursi</th>
-                        <th width="20%">Aksi</th>
+                        <th width="15%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($cinemas as $index => $cinema)
+                    @forelse ($cinemas as $index => $cinema)
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $cinema->name }}</td>
                             <td>{{ $cinema->total_kursi }}</td>
                             <td>
-                                <a href="{{ route('admin.cinemas.edit', $cinema->id) }}" class="btn btn-sm btn-warning">Ubah</a>
+                                <a href="{{ route('admin.cinemas.edit', $cinema->id) }}" class="btn btn-sm btn-outline-secondary me-1">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
                                 <form action="{{ route('admin.cinemas.destroy', $cinema->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Yakin ingin menghapus bioskop ini?')" type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                    <button onclick="return confirm('Yakin ingin menghapus bioskop ini?')" type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Belum ada data bioskop.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

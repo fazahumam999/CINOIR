@@ -3,15 +3,6 @@
 @section('title', 'Edit Tiket')
 
 @section('content')
-<div class="mb-3">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-transparent px-0">
-            <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('admin.tickets.index') }}" class="text-warning">Tiket</a></li>
-            <li class="breadcrumb-item active text-white" aria-current="page">Edit</li>
-        </ol>
-    </nav>
-</div>
 
 <div class="card mx-auto p-4" style="max-width: 600px;">
     <h2 class="mb-4">Edit Tiket</h2>
@@ -55,12 +46,8 @@
             </select>
         </div>
 
-        <a href="{{ route('admin.tickets.index') }}" class="btn btn-secondary">
-            <i class="bi bi-arrow-left-circle"></i> Kembali
-        </a>
-        <button type="submit" class="btn btn-warning text-dark fw-bold">
-            <i class="bi bi-pencil-square"></i> Update
-        </button>
+        <a href="{{ route('admin.tickets.index') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
 @endsection

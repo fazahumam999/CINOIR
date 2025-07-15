@@ -3,15 +3,6 @@
 @section('title', 'Tambah Jadwal Tayang')
 
 @section('content')
-    <div class="mb-3">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent px-0">
-                <li class="breadcrumb-item"><a href="/admin/dashboard" class="text-warning">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.schedules.index') }}" class="text-warning">Jadwal</a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">Tambah</li>
-            </ol>
-        </nav>
-    </div>
 
     <div class="card mx-auto p-4" style="max-width: 700px;">
         <h2 class="mb-4">Tambah Jadwal Tayang</h2>
@@ -49,12 +40,8 @@
                 <input type="number" name="harga" class="form-control" min="0" required>
             </div>
 
-            <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">
-                <i class="bi bi-arrow-left-circle"></i> Kembali
-            </a>
-            <button type="submit" class="btn btn-success">
-                <i class="bi bi-save"></i> Simpan
-            </button>
+            <a href="{{ route('admin.schedules.index') }}" class="btn btn-secondary">Kembali</a>
+        <button type="submit" class="btn btn-success">Simpan</button>
         </form>
     </div>
 @endsection
