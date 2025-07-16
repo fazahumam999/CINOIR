@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('genre');
-            $table->string('sinopsis')->nullable();
-            $table->integer('durasi');
-            $table->float('rating')->default(0);
-            $table->enum('status', ['now_showing', 'incoming'])->default('incoming');
+            $table->text('sinopsis')->nullable();
+            $table->integer('durasi'); //* Hitungannya Menit
+            $table->float('rating')->default(0); // ⭐ Tambahan: nilai rating
+            $table->enum('status', ['now', 'soon'])->default('soon');
             $table->string('poster')->nullable(); // URL atau path ke file
             $table->timestamps();
         });

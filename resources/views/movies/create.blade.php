@@ -40,12 +40,13 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="status" class="form-control" required>
-                <option value="now">Now Showing</option>
-                <option value="soon">Coming Soon</option>
-            </select>
-        </div>
+    <label class="form-label">Status</label>
+    <select name="status" class="form-control" required>
+        <option value="now">Now Showing</option>
+        <option value="soon">Coming Soon</option>
+    </select>
+</div>
+
 
         <a href="{{ route('admin.movies.index') }}" class="btn btn-secondary">Kembali</a>
         <button type="submit" class="btn btn-success">Simpan

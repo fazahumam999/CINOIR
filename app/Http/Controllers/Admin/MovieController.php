@@ -31,7 +31,6 @@ class MovieController extends Controller
             'sinopsis' => 'required|string',
             'durasi' => 'required|integer|min:1',
             'rating' => 'required|numeric',
-            'status' => 'required|in:now,coming',
             'poster' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required|in:now,soon'
 
@@ -78,7 +77,6 @@ class MovieController extends Controller
             'sinopsis' => 'required|string',
             'durasi' => 'required|integer|min:1',
             'rating' => 'required|numeric',
-            'status' => 'required|in:now,coming',
             'poster' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status' => 'required|in:now,soon'
 

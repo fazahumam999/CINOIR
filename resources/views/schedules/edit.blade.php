@@ -27,7 +27,7 @@
             <select name="cinema_id" class="form-select">
                 @foreach ($cinemas as $cinema)
                     <option value="{{ $cinema->id }}" {{ $schedule->cinema_id == $cinema->id ? 'selected' : '' }}>
-                        {{ $cinema->nama }}
+                        {{ $cinema->name }}
                     </option>
                 @endforeach
             </select>
