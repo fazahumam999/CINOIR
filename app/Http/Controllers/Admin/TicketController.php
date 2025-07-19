@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use App\Models\Schedule;
+use App\Models\Seat;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +15,7 @@ class TicketController extends Controller
     
     public function index()
     {
-        $tickets = Ticket::with('schedule')->get();
+        $tickets = Ticket::with('schedule.movie')->get();
         return view('tickets.index', compact('tickets'));
     }
 
@@ -113,6 +114,31 @@ public function store(Request $request)
         'harga' => $schedule->harga
     ]);
 }
+
+public function confirm(Request $request)
+{
+    $request->validate([
+        'seat' => 'required',
+        'schedule_id' => 'required|exists:schedules,id',
+        'nama_pembeli' => 'required|string|max:100',
+        'email_pembeli' => 'required|email',
+    ]);
+
+    $selectedSeats = explode(',', $request->seat);
+
+    foreach ($selectedSeats as $seat) {
+        Ticket::create([
+            'schedule_id' => $request->schedule_id,
+            'nomor_kursi' => $seat,
+            'nama_pembeli' => $request->nama_pembeli,
+            'email_pembeli' => $request->email_pembeli,
+            'status' => 'terpesan', 
+        ]);
+    }
+
+    return redirect()->route('user.tickets.payment')->with('success', 'Tiket berhasil dipesan!');
+}
+
 
 
 }

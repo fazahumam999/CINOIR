@@ -20,9 +20,9 @@
                 <span class="mx-2">•</span>
                 <span>{{ $film->durasi }} Menit</span>
             </div>
-            <button class="ticket-btn w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">
+            <a href="{{ route('cinemas.index') }}" class="mt-2 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
                 Times & Tickets
-            </button>
+            </a>
         </div>
     </div>
 @endforeach

@@ -12,8 +12,8 @@ class SeatSeeder extends Seeder
         // Contoh menambahkan 10 seat untuk schedule ID 1
         foreach (range(1, 10) as $i) {
             Seat::create([
-                'schedule_id' => 1,
-                'nomor_kursi' => 'A' . $i,
+                'schedule_id' => 2,
+                'seat_number' => 'A' . $i,
                 'status' => 'tersedia'
             ]);
         }

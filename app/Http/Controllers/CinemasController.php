@@ -24,4 +24,30 @@ public function index(Request $request)
         'selected' => $request->kota,
     ]);
 }
+
+public function show(Request $request, Cinema $cinema)
+{
+    // Tanggal yang dipilih (default = hari ini)
+    $date = $request->query('date', today()->toDateString());
+
+    // Ambil semua jadwal hari itu untuk bioskop ini, beserta film‑nya
+    $schedules = $cinema->schedules()
+                        ->with('movie')
+                        ->whereDate('waktu_mulai', $date)
+                        ->orderBy('waktu_mulai')
+                        ->get()
+                        ->groupBy('movie_id');   // dikelompokkan per film
+
+    // Siapkan 7 tab tanggal (hari ini + 6 hari ke depan)
+    $tabs = collect(range(0,6))->map(fn($i) => today()->addDays($i));
+
+    return view('user.cinemas.show', [
+        'cinema'    => $cinema,
+        'schedules' => $schedules,
+        'date'      => $date,
+        'tabs'      => $tabs,
+    ]);
+}
+
+
 }

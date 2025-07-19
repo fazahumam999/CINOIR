@@ -87,4 +87,6 @@ class FilmController extends Controller
 
         return view('user.films.coming-soon', compact('movies'));
     }
+
+    
 }
