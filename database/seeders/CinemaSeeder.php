@@ -9,10 +9,10 @@ class CinemaSeeder extends Seeder
 {
     public function run(): void
     {
-        Cinema::insert([
-            ['name' => 'Studio 1', 'kota' => 'Kota Bandung', 'image' => 'cinemas/download.jpeg'],
-            ['name' => 'Studio 2', 'kota' => 'Kota Bandung', 'image' => 'cinemas/download.jpeg'],
-            ['name' => 'Studio 3', 'kota' => 'Kota Bandung', 'image' => 'cinemas/download.jpeg'],
-        ]);
+        // Cinema::insert([
+        //     ['name' => 'Cinoir Miko Mall', 'kota' => 'Bandung', 'image' => 'cinemas/bioskop1.webp'],
+        //     ['name' => 'Cinoir Braga', 'kota' => 'Bandung', 'image' => 'cinemas/bioskop2.webp'],
+        //     ['name' => 'Cinoir TSM Cibubur', 'kota' => 'Jakarta', 'image' => 'cinemas/bioskop3.jpg'],
+        // ]);
     }
 }

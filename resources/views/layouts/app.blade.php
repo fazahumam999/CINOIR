@@ -187,6 +187,12 @@
         <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="/admin/users">
             <i class="bi bi-person"></i> Pengguna
         </a>
+        <form action="{{ route('logout') }}" method="POST" class="mt-auto px-3" onsubmit="return confirm('Yakin ingin logout?')">
+    @csrf
+    <button type="submit" class="nav-link text-start w-100 border-0 bg-transparent text-danger fw-bold">
+        <i class="bi bi-box-arrow-right"></i> Logout
+    </button>
+</form>
     </nav>
 
     <!-- Main Content -->

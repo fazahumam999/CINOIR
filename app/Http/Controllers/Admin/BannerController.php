@@ -73,24 +73,63 @@ public function store(Request $request)
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Banner $banner)
     {
-        //
+        return view('banners.edit', compact('banner'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, Banner $banner)
+{
+    $request->validate([
+        'title' => 'nullable|string|max:255',
+        'description' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'video' => 'nullable|mimetypes:video/mp4,video/webm,video/ogg|max:102400',
+    ]);
+
+    $data = [
+        'title' => $request->title,
+        'description' => $request->description,
+    ];
+
+    if ($request->hasFile('image')) {
+        // Hapus file lama jika ada
+        if ($banner->image && \Storage::disk('public')->exists($banner->image)) {
+            \Storage::disk('public')->delete($banner->image);
+        }
+
+        $data['image'] = $request->file('image')->store('banners', 'public');
+        $data['type'] = 'image';
+
+        // Kosongkan video jika sebelumnya ada
+        if ($banner->video) {
+            $data['video'] = null;
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    if ($request->hasFile('video')) {
+        if ($banner->video && \Storage::disk('public')->exists($banner->video)) {
+            \Storage::disk('public')->delete($banner->video);
+        }
+
+        $data['video'] = $request->file('video')->store('banners', 'public');
+        $data['type'] = 'video';
+
+        // Kosongkan gambar jika sebelumnya ada
+        if ($banner->image) {
+            $data['image'] = null;
+        }
+    }
+
+    $banner->update($data);
+
+    return redirect()->route('admin.banners.index')->with('success', 'Banner berhasil diperbarui.');
+}
+
+
+    public function destroy(Banner $banner)
     {
-        //
+        $banner->delete();
+        return redirect()->route('admin.banners.index')->with('success', 'Banner deleted successfully.');
     }
 }

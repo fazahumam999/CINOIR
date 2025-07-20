@@ -10,6 +10,10 @@ use App\Http\Controllers\Admin\SeatController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\CinemasController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController; //aku nambahin ini
+use App\Http\Middleware\PreventBackHistory; //aku nambahin ini
+use App\Http\Controllers\Admin\BannerController; //aku nambahin ini
+use Illuminate\Support\Facades\Auth; //aku nambahin ini
 
 
  
@@ -25,6 +29,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('schedules', SchedulesController::class);
     Route::resource('tickets', TicketController::class);
     Route::resource('seats', SeatController::class);
+    Route::resource('banners', BannerController::class);
 });
 
 Route::get('/schedules/{id}/seats', [SeatController::class, 'showPicker'])->name('seats.picker');
@@ -48,6 +53,40 @@ Route::get('/films/now-showing', [FilmController::class, 'nowShowing'])->name('f
 Route::get('/films/coming-soon', [FilmController::class, 'comingSoon'])->name('films.coming_soon');
 
 Route::get('/cinemas', [CinemasController::class, 'index'])->name('cinemas.index');
+
+// aku nambahin ini
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login')->middleware('guest');
+
+Route::post('/login', function (\Illuminate\Http\Request $request) {
+    $credentials = $request->only('email', 'password');
+
+    if (Auth::attempt($credentials, $request->filled('remember'))) {
+        $request->session()->regenerate();
+        return redirect()->intended('/admin/banners');
+    }
+
+    return back()->with('error', 'Email atau password salah.');
+});
+
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/login')->with('success', 'Anda berhasil logout.');
+})->name('logout');
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('/banners', BannerController::class)->names('admin.banners');
+
+});
+
+Route::middleware(['auth', PreventBackHistory::class])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('banners.index');
+});
 
 
 
