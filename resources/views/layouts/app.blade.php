@@ -158,6 +158,9 @@
         }
     }
     </style>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+
 </head>
 <body>
 
@@ -166,9 +169,6 @@
         <div class="sidebar-title">
             <i class="bi bi-film"></i> CINOIR
         </div>
-        <a class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" href="/admin/dashboard">
-            <i class="bi bi-house-door"></i> Dashboard
-        </a>
         <a class="nav-link {{ request()->is('banners') ? 'active' : '' }}" href="/admin/banners">
             <i class="bi bi-image"></i> Promotion
         </a>
@@ -183,9 +183,6 @@
         </a>
         <a class="nav-link {{ request()->is('tickets*') ? 'active' : '' }}" href="/admin/tickets">
             <i class="bi bi-ticket-detailed"></i> Tiket
-        </a>
-        <a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="/admin/users">
-            <i class="bi bi-person"></i> Pengguna
         </a>
         <form action="{{ route('logout') }}" method="POST" class="mt-auto px-3" onsubmit="return confirm('Yakin ingin logout?')">
     @csrf

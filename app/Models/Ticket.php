@@ -21,4 +21,19 @@ class Ticket extends Model
     {
         return $this->belongsTo(Schedule::class);
     }
+
+        public function movie()
+    {
+        return $this->hasOneThrough(Movie::class, Schedule::class, 'id', 'id', 'schedule_id', 'movie_id');
+    }
+
+    public function cinema()
+    {
+        return $this->hasOneThrough(Cinema::class, Schedule::class, 'id', 'id', 'schedule_id', 'cinema_id');
+    }
+
+    public function seat()
+    {
+        return $this->hasOne(Seat::class, 'seat_number', 'nomor_kursi')->whereColumn('schedule_id', 'schedule_id');
+    }
 }

@@ -24,6 +24,28 @@
             width: 100%;
         }
     </style>
+    
+        <style>
+        @keyframes gradient-x {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animate-gradient-x {
+            animation: gradient-x 6s ease infinite;
+        }
+
+        .bg-animated {
+            background-size: 300% 300%;
+        }
+    </style>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
+    
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
 </head>
 <body class="bg-gray-900 text-white min-h-screen flex flex-col">
 
@@ -43,7 +65,7 @@
                 <a href="{{ url('/') }}" class="nav-link hover:text-blue-400">Home</a>
                 <a href="{{ route('films.index') }}" class="nav-link hover:text-blue-400">Films</a>
                 <a href="{{ route('cinemas.index') }}" class="nav-link hover:text-blue-400">Cinemas</a>
-                <a href="#" class="nav-link hover:text-blue-400">Contact Us</a>
+                <a href="#contact" class="nav-link hover:text-blue-400">Contact Us</a>
             </nav>
 
             <!-- Right side icons -->

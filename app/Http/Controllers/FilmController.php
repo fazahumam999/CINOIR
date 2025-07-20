@@ -87,4 +87,14 @@ class FilmController extends Controller
 
         return view('user.films.coming-soon', compact('movies'));
     }
+
+    public function show($id)
+{
+    $movie = Movie::findOrFail($id);
+    return view('user.films.show', compact('movie'));
 }
+
+}
+
+
+

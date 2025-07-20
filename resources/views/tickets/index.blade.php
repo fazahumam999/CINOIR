@@ -18,17 +18,30 @@
                         <th>Nama Pembeli</th>
                         <th>Email</th>
                         <th>Status</th>
+                        <th>Dipesan Pada</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($tickets as $ticket)
                         <tr>
-                            <td>{{ $ticket->schedule->movie->judul }}</td>
+                            <td>{{ $ticket->schedule->movie->judul ?? '-' }}</td>
                             <td>{{ $ticket->nomor_kursi }}</td>
                             <td>{{ $ticket->nama_pembeli }}</td>
                             <td>{{ $ticket->email_pembeli }}</td>
-                            <td><span class="badge bg-secondary">{{ ucfirst($ticket->status) }}</span></td>
+                            @php
+    $badgeClass = match($ticket->status) {
+        'terpesan' => 'bg-warning',
+        'dibayar' => 'bg-success',
+        'dibatalkan' => 'bg-danger',
+        default => 'bg-secondary'
+    };
+@endphp
+<td>
+    <span class="badge {{ $badgeClass }}">{{ ucfirst($ticket->status) }}</span>
+</td>
+<td>{{ $ticket->created_at->format('d M Y H:i') }}</td>
+
                             <td>
                             <a href="{{ route('admin.tickets.edit', $ticket->id) }}" class="btn btn-sm btn-outline-secondary">Ubah</a>
                                 <form action="{{ route('admin.tickets.destroy', $ticket->id) }}" method="POST" class="d-inline">

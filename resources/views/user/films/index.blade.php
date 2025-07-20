@@ -58,7 +58,7 @@
                     <div class="p-4 text-black">
                         <h3 class="font-bold text-xl mb-1">{{ $movie->judul }}</h3>
                         <p class="text-sm text-gray-600">{{ $movie->genre }} • {{ $movie->durasi }} Menit</p>
-                        <a href="#" class="mt-2 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                        <a href="{{ route('user.films.show', $movie->id) }}" class="mt-2 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
                             Times & Tickets
                         </a>
                     </div>
@@ -82,7 +82,7 @@
                     <div class="p-4 text-black">
                         <h3 class="font-bold text-xl mb-1">{{ $movie->judul }}</h3>
                         <p class="text-sm text-gray-600">{{ $movie->genre }} • {{ $movie->durasi }} Menit</p>
-                        <a href="#" class="mt-2 inline-block bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                        <a href="{{ route('user.films.show', $movie->id) }}" class="mt-2 inline-block bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
                             View Details
                         </a>
                     </div>

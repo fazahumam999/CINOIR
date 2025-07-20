@@ -37,22 +37,25 @@
         </form>
 
         {{-- Judul --}}
+        <section id="our-cinema">
         <h2 class="text-3xl font-bold mb-6">Our Cinemas</h2>
+        </section>
 
         {{-- Grid List Cinemas --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach ($cinemas as $cinema)
-                <div class="bg-white rounded-lg overflow-hidden shadow text-black">
-                    @if ($cinema->image)
-                        <img src="{{ asset('storage/' . $cinema->image) }}" alt="{{ $cinema->name }}" class="w-full h-56 object-cover">
-                    @endif
-                    <div class="p-4">
-                        <h2 class="text-xl font-bold">{{ $cinema->name }}</h2>
-                        <p class="text-sm text-gray-600">{{ $cinema->kota ?? '-' }}</p>
-                        {{-- Optional tombol Direction (opsional kalau pakai Google Maps) --}}
-                        {{-- <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($cinema->kota) }}" target="_blank" class="text-blue-500 hover:underline text-sm">Directions</a> --}}
-                    </div>
-                </div>
+<a href="{{ route('cinemas.show', $cinema) }}" class="block hover:shadow-xl transition-shadow duration-300">
+    <div class="bg-white rounded-lg overflow-hidden shadow text-black">
+        @if ($cinema->image)
+            <img src="{{ asset('storage/' . $cinema->image) }}" alt="{{ $cinema->name }}" class="w-full h-56 object-cover">
+        @endif
+        <div class="p-4">
+            <h2 class="text-xl font-bold">{{ $cinema->name }}</h2>
+            <p class="text-sm text-gray-600">{{ $cinema->kota ?? '-' }}</p>
+        </div>
+    </div>
+</a>
+
             @endforeach
         </div>
     </div>
