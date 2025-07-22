@@ -78,11 +78,23 @@ Route::post('/tickets/complete-payment', [TicketsController::class, 'completePay
 Route::get('/payment', [TicketsController::class, 'showPaymentPage'])->name('payment.page');
 Route::get('/tickets/payment', [TicketsController::class, 'payment'])->name('user.tickets.payment');
 
+Route::post('/tickets/cancel', [TicketsController::class, 'cancel'])->name('tickets.cancel');
+
 Route::get('user/films/{id}', [FilmController::class, 'show'])->name('user.films.show');
 Route::post('/user/tickets/complete-payment', [TicketsController::class, 'completePayment'])->name('user.tickets.completePayment');
 Route::get('/user/tickets/success', function () {
     return view('user.tickets.success');
 })->name('user.tickets.success');
+
+Route::get('/search-movies', [FilmController::class, 'search']);
+Route::get('/films/{id}', [FilmController::class, 'show']);
+Route::get('/films/{id}', [FilmController::class, 'show'])->name('films.show');
+Route::post('/get-cinemas', [FilmController::class, 'getCinemas']);
+Route::post('/get-schedules', [FilmController::class, 'getSchedules']);
+
+
+
+
 
 
 
