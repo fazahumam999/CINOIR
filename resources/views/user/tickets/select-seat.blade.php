@@ -2,7 +2,7 @@
 
 @section('content')
 <main class="bg-gradient-to-b from-white to-blue-100 min-h-screen py-8 px-4">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 mt-40">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-8 mt-20">
 
         {{-- AREA KURSI --}}
         <div class="bg-white rounded-2xl shadow-lg p-6 flex-1">

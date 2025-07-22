@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Schedule;
+use App\Models\Cinema;
 
 class FilmController extends Controller
 {
@@ -88,11 +90,61 @@ class FilmController extends Controller
         return view('user.films.coming-soon', compact('movies'));
     }
 
-    public function show($id)
+public function show($id)
 {
     $movie = Movie::findOrFail($id);
-    return view('user.films.show', compact('movie'));
+
+    $dates = Schedule::selectRaw('DATE(waktu_mulai) as date')
+        ->where('movie_id', $movie->id)
+        ->distinct()
+        ->orderBy('date')
+        ->get();
+
+    return view('user.films.show', compact('movie', 'dates'));
 }
+
+
+public function search(Request $request)
+{
+    $query = $request->get('query');
+
+    $movies = Movie::where('judul', 'like', '%' . $query . '%')
+        ->select('id', 'judul')
+        ->limit(5)
+        ->get();
+
+    return response()->json($movies);
+}
+
+public function getCinemas(Request $request)
+{
+    $movieId = $request->movie_id;
+    $date = $request->date;
+
+    $cinemas = Cinema::whereHas('schedules', function ($query) use ($movieId, $date) {
+        $query->where('movie_id', $movieId)
+              ->whereDate('start_time', $date);
+    })->get();
+
+    return response()->json($cinemas);
+}
+
+public function getSchedules(Request $request)
+{
+    $movieId = $request->movie_id;
+    $cinemaId = $request->cinema_id;
+    $date = $request->date;
+
+    $schedules = Schedule::where('movie_id', $movieId)
+        ->where('cinema_id', $cinemaId)
+        ->whereDate('start_time', $date)
+        ->get();
+
+    return response()->json($schedules);
+}
+
+
+
 
 }
 

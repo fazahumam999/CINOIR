@@ -30,6 +30,9 @@ class TicketsController extends Controller
 
                 $seats = Seat::where('schedule_id', $id)->get();
     }
+
+    $seats = Seat::where('schedule_id', $id)->get()->sortBy('seat_number', SORT_NATURAL);
+
     
         return view('user.tickets.select-seat', compact('schedule', 'seats'));
     }
@@ -48,14 +51,14 @@ class TicketsController extends Controller
 
 public function confirm(Request $request)
 {
-$request->validate([
-    'schedule_id' => 'required|exists:schedules,id',
-    'seat' => 'required|string',
-    'nama_pembeli' => 'required|string|max:255',
-    'email_pembeli' => 'required|email|max:255',
-]);
+    $request->validate([
+        'schedule_id' => 'required|exists:schedules,id',
+        'seat' => 'required|string',
+        'nama_pembeli' => 'required|string|max:255',
+        'email_pembeli' => 'required|email|max:255',
+    ]);
 
-    $seats = explode(',', $request->seat);
+    $seats = explode(',', $request->seat); // misal: ['A1', 'A2', 'A3']
 
     $tickets = [];
 
@@ -68,13 +71,45 @@ $request->validate([
         ]);
     }
 
-    // Simpan tiket ke session (jika mau ditampilkan nanti)
+    // ✅ Update semua kursi yang dipilih
+    Seat::where('schedule_id', $request->schedule_id)
+        ->whereIn('seat_number', $seats)
+        ->update(['status' => 'terpesan']);
+
     session(['tickets' => $tickets]);
 
-    // Redirect ke halaman payment
     return redirect()->route('user.tickets.payment', ['id' => $tickets[0]->id]);
-
 }
+
+
+public function cancel(Request $request)
+{
+    $tickets = session('tickets', []);
+
+    foreach ($tickets as $ticket) {
+        // Hapus tiket dari database
+        $ticketModel = Ticket::find($ticket->id); // <- pastikan ini model asli
+        if ($ticketModel) {
+            $ticketModel->delete();
+        }
+
+        // Ambil seat yang sesuai
+        $seat = Seat::where('schedule_id', $ticket->schedule_id)
+                    ->where('seat_number', $ticket->nomor_kursi)
+                    ->first();
+
+        if ($seat) {
+            $seat->status = 'tersedia'; 
+            $seat->save();
+        }
+    }
+
+    session()->forget('tickets');
+
+    return response()->json(['message' => 'Tickets cancelled and seats released.']);
+}
+
+
 
 public function store(Request $request)
 {
@@ -132,17 +167,25 @@ public function completePayment(Request $request)
 
     $ticket = Ticket::findOrFail($request->ticket_id);
 
-    // Tandai tiket dibayar
-    $ticket->status = 'dibayar';
-    $ticket->save();
+    // Ambil semua tiket dengan email dan schedule yang sama
+    $tickets = Ticket::where('schedule_id', $ticket->schedule_id)
+        ->where('email_pembeli', $ticket->email_pembeli)
+        ->get();
 
-    // Generate nomor pesanan (random / by format)
+    foreach ($tickets as $t) {
+        $t->status = 'dibayar';
+        $t->save();
+
+        // Update juga status kursi
+        Seat::where('schedule_id', $t->schedule_id)
+            ->where('seat_number', $t->nomor_kursi)
+            ->update(['status' => 'dibayar']);
+    }
+
+    // Generate nomor pesanan
     $orderNumber = 'ORD' . now()->format('YmdHis') . rand(100, 999);
-
-    // Simpan ke session untuk ditampilkan
     session()->flash('order_number', $orderNumber);
 
-    // Redirect ke halaman sukses
     return redirect()->route('user.tickets.success');
 }
 
