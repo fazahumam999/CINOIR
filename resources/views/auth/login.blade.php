@@ -91,7 +91,7 @@
 </head>
 <body>
     <div class="login-box">
-        <h3>Login ke <strong>CINOIR</strong></h3>
+        <h3>Login</h3>
 
         @if(session('error'))
             <div class="alert alert-danger">{{ session('error') }}</div>

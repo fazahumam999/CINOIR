@@ -10,8 +10,8 @@ class ScheduleSeeder extends Seeder
 {
     public function run(): void
     {
-        $tanggalMulai = Carbon::create(2025, 7, 16); // 16 Juli 2025
-        $tanggalSelesai = Carbon::create(2025, 7, 22); // 22 Juli 2025
+        $tanggalMulai = Carbon::create(2025, 7, 22); // 22 Juli 2025
+        $tanggalSelesai = Carbon::create(2025, 7, 28); // 28 Juli 2025
 
         $jamTayangUmum = [12, 14, 16, 18, 20, 21];
         $hargaList = [45000, 50000, 55000, 60000];

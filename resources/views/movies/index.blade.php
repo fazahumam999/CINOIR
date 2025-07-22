@@ -42,13 +42,16 @@
                                 @endif
                             </td>
                             <td>
-                            <a href="{{ route('admin.movies.edit', $movie->id) }}" class="btn btn-sm btn-outline-secondary">Ubah</a>
-                                <form action="{{ route('admin.movies.destroy', $movie->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button onclick="return confirm('Yakin ingin menghapus film ini?')" type="submit" class="btn btn-sm btn-outline-danger">Hapus</button>
-                                </form>
-                            </td>
+    <a href="{{ route('admin.movies.edit', $movie->id) }}" class="btn btn-sm btn-outline-secondary mb-1">Ubah</a>
+    <form action="{{ route('admin.movies.destroy', $movie->id) }}" method="POST" class="d-inline">
+        @csrf
+        @method('DELETE')
+        <button onclick="return confirm('Yakin ingin menghapus film ini?')" type="submit" class="btn btn-sm btn-outline-danger mb-1">Hapus</button>
+    </form>
+    @if ($movie->trailer_url)
+        <a href="{{ $movie->trailer_url }}" target="_blank" class="btn btn-sm btn-outline-info">Trailer</a>
+    @endif
+</td>
                         </tr>
                     @endforeach
                 </tbody>

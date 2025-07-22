@@ -19,8 +19,6 @@
                     <li><a href="{{ url('/') }}" class="text-gray-400 hover:text-blue-400">Home</a></li>
                     <li><a href="{{ route('films.index') }}" class="text-gray-400 hover:text-blue-400">Movies</a></li>
                     <li><a href="{{ route('cinemas.index') }}" class="text-gray-400 hover:text-blue-400">Cinemas</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-blue-400">Promotions</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-blue-400">Gift Cards</a></li>
                 </ul>
             </div>
 

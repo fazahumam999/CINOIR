@@ -11,11 +11,10 @@ use App\Http\Controllers\FilmController;
 use App\Http\Controllers\CinemasController;
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController; //aku nambahin ini
-use App\Http\Middleware\PreventBackHistory; //aku nambahin ini
-use App\Http\Controllers\Admin\BannerController; //aku nambahin ini
-use Illuminate\Support\Facades\Auth; //aku nambahin ini
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController; 
+use App\Http\Middleware\PreventBackHistory; 
+use App\Http\Controllers\Admin\BannerController; 
+use Illuminate\Support\Facades\Auth; 
 
  
 // Halaman beranda (opsional)

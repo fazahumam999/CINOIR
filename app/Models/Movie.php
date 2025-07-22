@@ -17,6 +17,7 @@ class Movie extends Model
         'rating',
         'status',
         'poster',
+        'trailer_url',
         'harga',
     ];
 

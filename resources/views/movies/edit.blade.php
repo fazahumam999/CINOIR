@@ -36,6 +36,12 @@
             </div>
 
             <div class="mb-3">
+    <label for="trailer_url">Trailer URL</label>
+    <input type="url" name="trailer_url" class="form-control" value="{{ old('trailer_url', $movie->trailer_url) }}">
+</div>
+
+
+            <div class="mb-3">
                 <label class="form-label">Status</label>
                 <select name="status" class="form-select">
                     <option value="now" {{ $movie->status == 'now' ? 'selected' : '' }}>Now Showing</option>

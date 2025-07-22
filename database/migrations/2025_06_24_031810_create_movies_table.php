@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('durasi'); //* Hitungannya Menit
             $table->float('rating')->default(0); // ⭐ Tambahan: nilai rating
             $table->enum('status', ['now', 'soon'])->default('soon');
+            $table->string('trailer_url')->nullable()->after('poster');
             $table->string('poster')->nullable(); // URL atau path ke file
             $table->timestamps();
         });

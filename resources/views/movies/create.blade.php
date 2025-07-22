@@ -40,6 +40,11 @@
         </div>
 
         <div class="mb-3">
+    <label for="trailer_url">Trailer URL</label>
+    <input type="url" name="trailer_url" class="form-control" value="{{ old('trailer_url') }}">
+</div>
+
+        <div class="mb-3">
     <label class="form-label">Status</label>
     <select name="status" class="form-control" required>
         <option value="now">Now Showing</option>
