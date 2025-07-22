@@ -169,6 +169,9 @@
         <div class="sidebar-title">
             <i class="bi bi-film"></i> CINOIR
         </div>
+        <a class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}" href="/cinemas">
+            <i class="bi bi-house-door"></i> Dashboard
+        </a>
         <a class="nav-link {{ request()->is('banners') ? 'active' : '' }}" href="/admin/banners">
             <i class="bi bi-image"></i> Promotion
         </a>

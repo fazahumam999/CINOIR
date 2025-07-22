@@ -29,9 +29,9 @@
                         <p class="text-sm text-gray-600 mb-2">
                             {{ $movie->genre }} • {{ $movie->durasi }} Menit
                         </p>
-                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-semibold ticket-btn">
+                        <a href="{{ route('user.films.show', $movie->id) }}" class="mt-2 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
                             View Detail
-                        </button>
+                        </a>
                     </div>
                 </div>
             @empty
